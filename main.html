@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <!--
+    Neste segundo projeto  vocês desenvolverão um aplicativo , baseado em HTML, CSS e JavaScript para 
+    resolver uma equação de recorrência homogênea de segunda ordem e com coeficientes constantes. 
+    No aplicativo os dados de entradas são os coeficientes da equação de recorrência e como saída temos 
+    a solução da recorrência, baseado nos três casos vistos em sala de aula.
+    -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="witdh=device-width, initial-scale=1.0">
+        <title>Equações de recorrência homogêneas de segunda ordem</title>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Algoritmo para resolução de equações de Recorrência Homogêneas de 2ª Ordem</h1>
+        <h3>Alunos: Thiago Coelho de Oliveira e Yan Balbino Nogueira</h3>
+        <br>
+        <h2>Digite os coeficientes da equação de recorrência a ser resolvida: </h2>
+        <p><input type="text" id="coeficienteA"> X<sub>n + 2</sub> + 
+        <input type="text" id="coeficienteB"> X<sub>n + 1</sub> + 
+        <input type="text" id="coeficienteC"> X<sub>n</sub> = 0</p>
+
+        <button id="bt_calcular" onclick="calcular()">Calcular</button>
+        <br>
+        <label id="delta-neg" hidden="true">Delta negativo, solução em radianos</label>
+        <p>Solução da equação:</p>
+        <label id="solucao"></label>
+    </body>
+</html>
