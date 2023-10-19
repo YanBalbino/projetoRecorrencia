@@ -22,19 +22,21 @@ function calcular(){
     let solucao;
 
     delta = c2*c2 - 4 * c1 * c3;
-
+    
     if (delta == 0){
         r1 = -c2 / (2 * c1);
         r2 = r1;
 
-        solucao = "Xn = C1 * " + r1 + "^n + " + "C2 * n" + r2 + "^n";
+        // solucao = "Xn = C1 * " + r1 + "^n + " + "C2 * n" + r2 + "^n";
+        solucao = `Xn = C1 *  ${r1}^n + C2 * n*${r2} ^n`;
         document.getElementById("delta-neg").hidden = true;
     }
     if (delta > 0){
         r1 = (-c2 + Math.sqrt(delta))/ (2 * c1);
         r2 = (-c2 - Math.sqrt(delta))/ (2 * c1);
 
-        solucao = "Xn = C1 * " + r1 + "^n + " + "C2 * " + r2 + "^n";
+        // solucao = "Xn = C1 * " + r1 + "^n + " + "C2 * " + r2 + "^n";
+        solucao = `Xn = C1*${r1}^n + C2*${r2}^n`;
         document.getElementById("delta-neg").hidden = true;
     }
     if (delta < 0){
@@ -44,13 +46,13 @@ function calcular(){
         angulo = Math.atan(real / imaginaria).toFixed(5);
         modulo = Math.sqrt(Math.pow(real, 2) + Math.pow(imaginaria, 2)).toFixed(0);
 
-        solucao = "Xn = " + modulo + "^n * [ K1 * cos(n * " + angulo + ") + "
-        + "K2 * sen(n * " + angulo + ")]";
+        // solucao = "Xn = " + modulo + "^n * [ K1 * cos(n * " + angulo + ") + "
+        // + "K2 * sen(n * " + angulo + ")]";
+
+        solucao = `Xn = ${modulo}^n * [ K1 * cos(n * ${angulo}) + K2 * sen(n * ${angulo} )]`;
         document.getElementById("delta-neg").hidden = false;
     }
 
     document.getElementById("solucao").textContent = solucao;
-
-    
 }
 

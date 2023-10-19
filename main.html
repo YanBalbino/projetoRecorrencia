@@ -10,22 +10,30 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="witdh=device-width, initial-scale=1.0">
         <title>Equações de recorrência homogêneas de segunda ordem</title>
-        <script src="script.js"></script>
         <link rel="stylesheet" href="style.css">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="script.js"></script>
     </head>
     <body>
-        <h1>Algoritmo para resolução de equações de Recorrência Homogêneas de 2ª Ordem</h1>
-        <h3>Alunos: Thiago Coelho de Oliveira e Yan Balbino Nogueira</h3>
-        <br>
-        <h2>Digite os coeficientes da equação de recorrência a ser resolvida: </h2>
-        <p><input type="text" id="coeficienteA"> X<sub>n + 2</sub> + 
-        <input type="text" id="coeficienteB"> X<sub>n + 1</sub> + 
-        <input type="text" id="coeficienteC"> X<sub>n</sub> = 0</p>
+        
+        <div id="content">
+            <h1>Algoritmo para resolução de equações de Recorrência Homogêneas de 2ª Ordem</h1>
+            <h3>Alunos: Thiago Coelho de Oliveira e Yan Balbino Nogueira</h3>
+            <br>
+            <h2>Digite os coeficientes da equação de recorrência a ser resolvida: </h2>
+            <p>
+                <input type="text" id="coeficienteA" class="coeffield"> X<sub>n + 2</sub> + 
+                <input type="text" id="coeficienteB" class="coeffield"> X<sub>n + 1</sub> + 
+                <input type="text" id="coeficienteC" class="coeffield"> X<sub>n</sub> = 0
+            </p>
 
-        <button id="bt_calcular" onclick="calcular()">Calcular</button>
-        <br>
-        <label id="delta-neg" hidden="true">Delta negativo, solução em radianos</label>
-        <p>Solução da equação:</p>
-        <label id="solucao"></label>
+            <button id="bt_calcular" onclick="calcular()">Calcular</button>
+            <br>
+            <label id="delta-neg" hidden="true">Delta negativo, solução em radianos</label>
+            <p>Solução da equação:</p>
+            <label id="solucao"></label>
+        </div>
+        
     </body>
 </html>
