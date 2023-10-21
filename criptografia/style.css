@@ -48,12 +48,20 @@ button:hover {
 }
 
 #content {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
-.coeffield {
-    width: 2rem;
-    color: white;
-    font-weight: 600;
-    font-size: 1.5rem;
+/* #msg-field {
+    width: 100%;
+} */
+
+.coef-field {
+    width: 4rem;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
