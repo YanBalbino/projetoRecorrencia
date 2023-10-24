@@ -130,8 +130,8 @@ function encrypt() {
 
     // Mostrar resultado
     let result = encryptText(msg, a, b, c);
-    result_numbers.innerText = `[${result.join(', ')}]`;
-    result_text.innerText = numberArrayToString(result);
+    result_numbers.innerHTML = `<strong>[${result.join(', ')}]</strong>`;
+    result_text.innerHTML = `<strong>${numberArrayToString(result)}</strong>`;
     // result_text.innerText = result;
 }
 
@@ -148,8 +148,8 @@ function decrypt() {
 
     // Mostrar resultado
     let result = decryptText(msg, a, b, c);
-    result_numbers.innerText = `[${result.join(', ')}]`;
-    result_text.innerText = numberArrayToString(result);
+    result_numbers.innerHTML = `<strong>[${result.join(', ')}]</strong>`;
+    result_text.innerHTML = `<strong>${numberArrayToString(result)}</strong>`;
     // result_text.innerText = result;
     
 }

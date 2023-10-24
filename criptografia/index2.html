@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="witdh=device-width, initial-scale=1.0">
+        <title>Cifra de Cesar</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+    </head>
+    <body>
+        
+        <div id="content">
+            <h1>Algoritmo para criptografia com Cifra de cesar</h1>
+            <h3>Alunos: Thiago Coelho de Oliveira e Yan Balbino Nogueira</h3>
+            <br>
+            
+            <div id="form">
+                <label>Mensagem:</label>
+                <input type="text" placeholder="Mensagem" id="msg-field"/><br/>
+                <div>
+                    <span>f(x) = </span>
+                    <input id="a-field" type="text" class="coef-field" placeholder="a"><span>x^2</span>
+                    <input id="b-field" type="text" class="coef-field" placeholder="b"><span>*x</span>
+                    <input id="c-field" type="text" class="coef-field" placeholder="c">
+                </div>
+                <button onclick="encrypt()">Criptografar</button>
+                <button onclick="decrypt()">Descriptografar</button>
+            </div>
+            
+            <div>
+                <p>Resultado:
+                    <span id="resultado"></span>
+                </p>
+                
+                <p>Numeros:
+                    <span id="numeros"></span>
+                </p>
+            </div>
+            
+            
+        </div>
+        <script src="script2.js"></script>
+    </body>
+</html>
