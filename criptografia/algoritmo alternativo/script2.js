@@ -8,23 +8,26 @@ var result_numbers = document.getElementById("numeros");
 var kValues, values;
 let inputCharTable = [];
 
-// Criar tabela com caracteres printaveis
-for (let i = 32; i <= 126; i++) {
-    inputCharTable.push(String.fromCharCode(i));
-}
-for (let i = 130; i <= 140; i++) {
-    inputCharTable.push(String.fromCharCode(i));
-}
-for (let i = 145; i <= 148; i++) {
-    inputCharTable.push(String.fromCharCode(i));
-}
-for (let i = 150; i <= 156; i++) {
-    inputCharTable.push(String.fromCharCode(i));
-}
-for (let i = 159; i <= 159; i++) {
-    inputCharTable.push(String.fromCharCode(i));
-}
-for (let i = 161; i <= 255; i++) {
+// for (let i = 32; i <= 126; i++) {
+//     inputCharTable.push(String.fromCharCode(i));
+// }
+// for (let i = 130; i <= 140; i++) {
+//     inputCharTable.push(String.fromCharCode(i));
+// }
+// for (let i = 145; i <= 148; i++) {
+//     inputCharTable.push(String.fromCharCode(i));
+// }
+// for (let i = 150; i <= 156; i++) {
+//     inputCharTable.push(String.fromCharCode(i));
+// }
+// for (let i = 159; i <= 159; i++) {
+//     inputCharTable.push(String.fromCharCode(i));
+// }
+// for (let i = 161; i <= 255; i++) {
+//     inputCharTable.push(String.fromCharCode(i));
+// }
+
+for (let i = 0; i < 256; i++) {
     inputCharTable.push(String.fromCharCode(i));
 }
 
@@ -50,6 +53,18 @@ function encrypt() {
     result_text.innerHTML = `<strong>${msg}</strong>`
 }
 
+function decrypt() {
+    let a = parseFloat(a_field.value);
+    let b = parseFloat(b_field.value);
+    let c = parseFloat(c_field.value);
+    let msg = msg_field.value;
+
+    if (msg != "") {
+        let result = decryptText(msg, a, b, c);
+        result_text.innerHTML = result;
+    }
+}
+
 function encryptText(msg, a, b, c) {
     let result = "";
     kValues = new Array(msg.length);
@@ -67,43 +82,28 @@ function encryptText(msg, a, b, c) {
     return [result, kValues, values];
 }
 
-function decrypt() {
-    let a = parseFloat(a_field.value);
-    let b = parseFloat(b_field.value);
-    let c = parseFloat(c_field.value);
-    let msg = msg_field.value;
-
-    if (msg != "") {
-        let result = decryptText(msg, a, b, c);
-        result_text.innerHTML = result;
-    }
-}
-
 function decryptText(msg, a, b, c) {
   let result = "";
 
   for (let i = 0; i < msg.length; i++) {
-    values[i] += kValues[i] * inputCharTable.length;
-    values[i] = inverseFunction(values[i], a, b, c);
-    result += inputCharTable[values[i]];
+    let x = values[i] + kValues[i] * inputCharTable.length;
+    let delta = b*b - 4*a*(c-x);
+    let sqrt_delta = Math.sqrt(delta);
+
+    if (a === 0) {
+        x = (x - c) / b;
+    }
+    
+    if (a > 0) {
+        x = (-b + sqrt_delta) / (2*a);
+    }
+      
+    if (a < 0) {
+        x =  (-b - sqrt_delta) / (2*a);
+    }
+
+    result += inputCharTable[x];
   }
 
   return result;
-}
-
-function inverseFunction(x, a, b, c) {
-  let delta = b*b - 4*a*(c-x);
-  let sqrt_delta = Math.sqrt(delta);
-
-  if (a === 0) {
-    return (x - c) / b;
-  }
-  
-  if (((-b + sqrt_delta) / (2*a)) === 0 || a > 0) {
-    return (-b + sqrt_delta) / (2*a);
-  }
-  
-  if (((-b - sqrt_delta) / (2*a)) === 0 || a < 0) {
-    return (-b - sqrt_delta) / (2*a);
-  }
 }
