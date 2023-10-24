@@ -15,7 +15,7 @@ console.log("Tamanho tabela:", inputCharTable.length);
 
 function modulo(x, m) {
     // Calcular resto positivo da divisão
-    return ((m - x % m) % m);
+    return ((m + x % m) % m);
 }
 
 function generateEncryptedTable(a, b, c) {
@@ -55,7 +55,7 @@ function decryptText(text, a, b, c) {
         let i = encryptedTable.indexOf(char);
         let x = inputCharTable[i];
         
-        //result += x;
+        // result += x;
         result.push(i);
     }
 
@@ -65,6 +65,7 @@ function decryptText(text, a, b, c) {
 function numberArrayToString(numbers) {
     let result = "";
     for (let n of numbers) {
+        console.log(n, "'" + inputCharTable[n] + "'");
         result += inputCharTable[n];
     }
     return result;
@@ -75,16 +76,46 @@ function checkFunction(a, b, c) {
 
     let encryptedTable = generateEncryptedTable(a, b, c);
     let valid = true;
-
+    console.log(encryptedTable);
     for (let char of encryptedTable) {
         let n = encryptedTable.filter(c => c === char).length;
         if (n > 1) {
-            console.log("Caractere duplicado:", char, "; Quantidade:", n);
+            console.log("Caractere repetido:", char, "; quantidade de repetições:", n);
             valid = false;
         }
     }
 
     return valid;
+}
+
+function check(a, b, c) {
+    // Verificar se é possível inverter a função
+    if (isNaN(a) || a == undefined) {
+        alert("Preencha o campo A.");
+        return false ;
+    }
+    
+    if (isNaN(b) || b == undefined) {
+        alert("Preencha o campo B.");
+        return false ;
+    }
+    
+    if (isNaN(c) || c == undefined) {
+        alert("Preencha o campo C.");
+        return false ;
+    }
+
+    if (a == 0 && b == 0) {
+        alert("Informe uma função váida.");
+        return false;
+    }
+    
+    if (!checkFunction(a, b, c)) {
+        alert("A função não inversível");
+        return false;
+    }
+
+    return true;
 }
 
 function encrypt() {
@@ -93,15 +124,15 @@ function encrypt() {
     let c = parseFloat(c_field.value);
     let msg = msg_field.value;
 
-    // Verificar se é possível inverter a função
-    if (!checkFunction(a, b, c)) {
-        alert("Função inválida");
+    if (!check(a, b, c)) {
+        return;
     }
 
     // Mostrar resultado
     let result = encryptText(msg, a, b, c);
     result_numbers.innerText = `[${result.join(', ')}]`;
     result_text.innerText = numberArrayToString(result);
+    // result_text.innerText = result;
 }
 
 function decrypt() {
@@ -111,13 +142,14 @@ function decrypt() {
     let msg = msg_field.value;
 
     // Verificar se é possível inverter a função
-    if (!checkFunction(a, b, c)) {
-        alert("Função inválida");
+    if (!check(a, b, c)) {
+        return;
     }
 
     // Mostrar resultado
     let result = decryptText(msg, a, b, c);
     result_numbers.innerText = `[${result.join(', ')}]`;
     result_text.innerText = numberArrayToString(result);
+    // result_text.innerText = result;
     
 }
