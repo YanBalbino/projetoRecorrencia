@@ -1,54 +1,123 @@
-// const a_field = document.getElementById("a-field");
 var a_field = document.getElementById('a-field');
 var b_field = document.getElementById("b-field");
 var c_field = document.getElementById("c-field");
 var msg_field = document.getElementById("msg-field");
-var result_text = document.getElementById("resultado")
+var result_text = document.getElementById("resultado");
+var result_numbers = document.getElementById("numeros");
 
-function criptografar() {
-    let a = parseFloat(a_field.value);
-    let b = parseFloat(b_field.value);
-    let c = parseFloat(c_field.value);
-    let msg = msg_field.value;
-    let resultado = criptografarTexto(msg, a, b, c);
-    result_text.innerText = resultado;
+let inputCharTable = [];
+
+for (let i = 0; i < 256; i++) {
+    inputCharTable.push(String.fromCharCode(i));
 }
 
-function descriptografar() {
-    let a = parseFloat(a_field.value);
-    let b = parseFloat(b_field.value);
-    let c = parseFloat(c_field.value);
-    let msg = msg_field.value;
-    let resultado = descriptografarTexto(msg, a, b, c);
-    result_text.innerText = resultado;
+console.log("Tamanho tabela:", inputCharTable.length);
+
+function modulo(x, m) {
+    // Calcular resto positivo da divisão
+    return ((m - x % m) % m);
 }
 
-function criptografarTexto(texto, a, b, c) {
-    let resultado = "";
-    for (let caractere of texto) {
-        let x = caractere.charCodeAt(0);
-        let y = (a * x * x + b * x + c) % 256; // f(x) = ax²+bx+c
-        resultado += String.fromCharCode(y);
+function generateEncryptedTable(a, b, c) {
+    let encryptedTable = [];
+
+    for (let char of inputCharTable) {
+        let x = inputCharTable.indexOf(char);
+        let y = modulo((a * x * x + b * x + c), inputCharTable.length);
+        encryptedTable.push(inputCharTable[y]);
     }
-    return resultado;
+
+    return encryptedTable;
 }
 
-function descriptografarTexto(texto, a, b, c) {
-    let resultado = "";
-    for (let caractere of texto) {
-        let y = caractere.charCodeAt(0);
-        let x;
+function encryptText(text, a, b, c) {
+    let encryptedTable = generateEncryptedTable(a, b, c);
+    // let result = "";
+    let result = []
+
+    for (let char of text) {
+        let i = inputCharTable.indexOf(char);
+        let y = encryptedTable[i];
+        let y_index = inputCharTable.indexOf(y);
+        // result += y;
+        result.push(y_index);
+    }
+
+    return result;
+}
+
+function decryptText(text, a, b, c) {
+    let encryptedTable = generateEncryptedTable(a, b, c);
+    // let result = "";
+    let result = []
+
+    for (let char of text) {
+        let i = encryptedTable.indexOf(char);
+        let x = inputCharTable[i];
         
-        if (a != 0) {
-            x = (-b + Math.sqrt(b*b - 4*a*(c-y))); // função inversa de f(x) = ax²+bx+c
-        } else {
-            x = (y - c) / b;
-            console.log(x);
-        }
-
-        resultado += String.fromCharCode(x);
+        //result += x;
+        result.push(i);
     }
-    return resultado;
+
+    return result;
 }
 
-criptografarTexto("Hello", 0, 0, 0);
+function numberArrayToString(numbers) {
+    let result = "";
+    for (let n of numbers) {
+        result += inputCharTable[n];
+    }
+    return result;
+}
+
+function checkFunction(a, b, c) {
+    // Verificar se a função dada é inversível
+
+    let encryptedTable = generateEncryptedTable(a, b, c);
+    let valid = true;
+
+    for (let char of encryptedTable) {
+        let n = encryptedTable.filter(c => c === char).length;
+        if (n > 1) {
+            console.log("Caractere duplicado:", char, "; Quantidade:", n);
+            valid = false;
+        }
+    }
+
+    return valid;
+}
+
+function encrypt() {
+    let a = parseFloat(a_field.value);
+    let b = parseFloat(b_field.value);
+    let c = parseFloat(c_field.value);
+    let msg = msg_field.value;
+
+    // Verificar se é possível inverter a função
+    if (!checkFunction(a, b, c)) {
+        alert("Função inválida");
+    }
+
+    // Mostrar resultado
+    let result = encryptText(msg, a, b, c);
+    result_numbers.innerText = `[${result.join(', ')}]`;
+    result_text.innerText = numberArrayToString(result);
+}
+
+function decrypt() {
+    let a = parseFloat(a_field.value);
+    let b = parseFloat(b_field.value);
+    let c = parseFloat(c_field.value);
+    let msg = msg_field.value;
+
+    // Verificar se é possível inverter a função
+    if (!checkFunction(a, b, c)) {
+        alert("Função inválida");
+    }
+
+    // Mostrar resultado
+    let result = decryptText(msg, a, b, c);
+    result_numbers.innerText = `[${result.join(', ')}]`;
+    result_text.innerText = numberArrayToString(result);
+    
+}

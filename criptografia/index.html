@@ -16,7 +16,6 @@
             <h3>Alunos: Thiago Coelho de Oliveira e Yan Balbino Nogueira</h3>
             <br>
             
-            
             <div id="form">
                 <label>Mensagem:</label>
                 <input type="text" placeholder="Mensagem" id="msg-field"/><br/>
@@ -26,13 +25,21 @@
                     <input id="b-field" type="text" class="coef-field" placeholder="b"><span>*x</span>
                     <input id="c-field" type="text" class="coef-field" placeholder="c">
                 </div>
-                <button onclick="criptografar()">Criptografar</button>
-                <button onclick="descriptografar()">Descriptografar</button>
+                <button onclick="encrypt()">Criptografar</button>
+                <button onclick="decrypt()">Descriptografar</button>
+            </div>
+            
+            <div>
+                <p>Resultado:
+                    <span id="resultado"></span>
+                </p>
+                
+                <p>Numeros:
+                    <span id="numeros"></span>
+                </p>
             </div>
             
             
-            <p>Resultado:</p>
-            <span id="resultado"></span>
         </div>
         <script src="script.js"></script>
     </body>
